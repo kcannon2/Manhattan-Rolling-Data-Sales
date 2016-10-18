@@ -1,4 +1,4 @@
-## Queens-Rolling-Data-Sales
+## Manhattan-Rolling-Data-Sales
 
 The purpose of the project is to analyze Manhattan housing sales data.  We will mainly focus on housing sales data for one, two, and three family homes. 
 
