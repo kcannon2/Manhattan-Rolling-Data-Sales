@@ -25,9 +25,9 @@ manhattan$SALE.PRICE.N <- as.numeric(gsub("[^[:digit:]]","", manhattan$SALE.PRIC
 ## Convert building class as factor
 ## Convert Sale.Date as date
 ## convert type for year built variable to numeric
-manhattan$gross.sqft <- as.numeric(gsub("[^[:digit:]]","", manhattan$gross.square.feet))
-manhattan$land.sqft <- as.numeric(gsub("[^[:digit:]]","", manhattan$land.square.feet))
-manhattan$Sale.Date<-as.Date(manhattan$SALE.DATE, "%m/%d/%Y")
+manhattan$gross.sqft <- as.numeric(gsub("[^[:digit:]]","", manhattan$GROSS.SQUARE.FEET))
+manhattan$land.sqft <- as.numeric(gsub("[^[:digit:]]","", manhattan$LAND.SQUARE.FEET))
+manhattan$SALE.DATE<-as.Date(manhattan$SALE.DATE, "%m/%d/%Y")
 manhattan$BUILDING.CLASS.CATEGORY<-factor(manhattan$BUILDING.CLASS.CATEGORY)
 manhattan$YEAR.BUILT<-as.numeric((as.character(manhattan$YEAR.BUILT)))
 
@@ -78,11 +78,12 @@ plot(log10(manhattan.homes$gross.sqft),log10(manhattan.homes$sale.price.n))
 #get the 5 point summary for the dataset variables where sale price is less than 100000
 summary(manhattan.homes[which(manhattan.homes$sale.price.n<100000),])
 
-
 ## remove outliers that seem like they weren't actual sales
 manhattan.homes$outliers <- (log10(manhattan.homes$sale.price.n) <=5) + 0
 manhattan.homes <- manhattan.homes[which(manhattan.homes$outliers==0),]
 plot(log10(manhattan.homes$gross.sqft),log10(manhattan.homes$sale.price.n))
 
+# output the clean dataset to output file for analysis
+write.csv(manhattan.homes,file=".\\2011_manhattan_tidy.csv")
 
 
