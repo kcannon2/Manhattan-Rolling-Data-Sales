@@ -1,0 +1,46 @@
+---
+title: "Manhattan Rolling Data Sales Paper"
+author: "Kevin Cannon, Vishi Cline, Abhishek Dharwadkar"
+date: "October 24, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Description:  Markdown analysis on the cleaned datafile for manhattan rolling sales data
+
+Load libraries gdata and plyr
+```{r}
+library(gdata)
+library(plyr)
+```
+
+Read the cleaned comma delimited csv file whith header starting at row 1
+```{r}
+manhattan.clean <- read.csv("D:\\My Documents\\GitHub\\Manhattan-Rolling-Data-Sales\\Data\\2011_manhattan_tidy.csv",header=TRUE)
+```
+
+Check what variables are there and the their types
+```{r}
+str(manhattan.clean)
+```
+
+Explore the clean data with histograms
+```{r}
+hist(manhattan.clean$gross.sqft)
+hist(log10(manhattan.clean$gross.sqft))
+hist(manhattan.clean$sale.price.n)
+hist(log10(manhattan.clean$sale.price.n))
+```
+
+Explore the data with scatterplots to check the effect of the size of the house on the sale price
+```{r}
+plot(log10(manhattan.clean$gross.sqft),log10(manhattan.clean$sale.price.n), pch = 16, cex = 1.3, col = "blue", xlab = "Gross Sqft", ylab = "Sale Price")
+```
+
+We can also explore the data by looking at the boxplots of the sale price by building class category
+```{r}
+boxplot(log10(manhattan.clean$sale.price.n)~manhattan.clean$building.class.category)
+```
