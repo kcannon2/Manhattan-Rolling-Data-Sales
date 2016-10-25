@@ -11,23 +11,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Description:  Markdown analysis on the cleaned datafile for manhattan rolling sales data
 
-Load libraries gdata and plyr
+Load libraries gdata and plyr:
 ```{r}
 library(gdata)
 library(plyr)
 ```
 
-Read the cleaned comma delimited csv file whith header starting at row 1
+Read the cleaned comma delimited csv file whith header starting at row 1:
 ```{r}
 manhattan.clean <- read.csv("D:\\My Documents\\GitHub\\Manhattan-Rolling-Data-Sales\\Data\\2011_manhattan_tidy.csv",header=TRUE)
 ```
 
-Check what variables are there and the their types
+Check what variables are there and the their types:
 ```{r}
 str(manhattan.clean)
 ```
 
-Explore the clean data with histograms
+Explore the clean data with histograms:
 ```{r}
 hist(manhattan.clean$gross.sqft)
 hist(log10(manhattan.clean$gross.sqft))
@@ -35,12 +35,22 @@ hist(manhattan.clean$sale.price.n)
 hist(log10(manhattan.clean$sale.price.n))
 ```
 
-Explore the data with scatterplots to check the effect of the size of the house on the sale price
+Explore the data with scatterplots to check the effect of the size of the house on the sale price:
 ```{r}
 plot(log10(manhattan.clean$gross.sqft),log10(manhattan.clean$sale.price.n), pch = 16, cex = 1.3, col = "blue", xlab = "Gross Sqft", ylab = "Sale Price")
 ```
 
-We can also explore the data by looking at the boxplots of the sale price by building class category
+# Meaningful patterns
+
+From the scatterplot of sale price versus gross square footage of the homes, it appears that there is a positive relationship between the two. As the area of the house increases, the sale price of the house increases as well. In fact, the steep positive slope indicates that the price increases quickly with very small increases in overall square footage. This trend is to be expected in a dense area like Manhattan, where space sells for a premium.  
+
+***
+
+We can also explore the data by looking at the boxplots of the sale price by building class category:
 ```{r}
 boxplot(log10(manhattan.clean$sale.price.n)~manhattan.clean$building.class.category)
 ```
+
+# Meaningful patterns
+
+Looking at the sale price of houses in the context of building class, the results are a bit counter intuitive. A three-family home has a lower average sale price than a two-family home, and a two-family home has a lower average sale price than a single-family home. Based on the previous data exploration comparing sale price and square footage, it may be expected that the three-amily home would sell for more since three families likely need more space (and therefore square footage) than a single-family. Here, however, a different factor is accounting for the reversed trend - privacy. Since space is a premium, many people share homes to save money. If a family wants a home to themselves, it costs more to live than to share accommodations. 
